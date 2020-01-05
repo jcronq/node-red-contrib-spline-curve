@@ -116,27 +116,6 @@
                 return m * xpos + b;
             }
 
-            this.getPolynomialInterpolationFunction = function (points) {
-                var n = points.length - 1, p;
-
-                p = function (i, j, x) {
-                    if (i === j) {
-                        return points[i].y;
-                    }
-            
-                    return ((points[j].x - x) * p(i, j - 1, x) +
-                        (x - points[i].x) * p(i + 1, j, x)) /
-                        (points[j].x - points[i].x);
-                };
-
-                return function (x) {
-                    if (points.length === 0) {
-                        return 0;
-                    }
-                    return p(0, n, x);
-                };
-            }
-
             this.getValueAt = function(xpos) {
                 'use strict';
             
@@ -497,7 +476,7 @@
         }
 
         const getHtmlForPoint = function(point){
-            line = `<p>point: ${point.uid}</p>`;
+            line = `point ${point.uid}: `;
             line = line += getHtmlCoordInput(point.x, point.uid, 'x');
             line = line += ' ' + getHtmlCoordInput(point.y, point.uid, 'y');
             return line;
