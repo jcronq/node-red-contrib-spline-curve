@@ -54,12 +54,14 @@
                 this.onAddPoint(insertIndex, point);
             }
 
-            this.removePoint = function(pointIndex){
+            this.removePoint = function(pointIndex, notify=true){
                 this.recalculate = true;
                 const point = this.points[pointIndex];
+                const uid = point.uid;
                 this.points.splice(pointIndex, 1);
-                this.onRemovePoint(pointIndex, point, this.pointMap[point.uid]);
-                delete this.pointMap[point.uid];
+                if(notify)
+                    this.onRemovePoint(pointIndex, point, this.pointMap[point.uid]);
+                delete this.pointMap[uid];
             }
 
             this.movePoint = function(pointIndex, newValue){
@@ -189,6 +191,7 @@
             this.redraw			= 0;
             this.onChange		= config.callback;
             this.stepSize       = 1.0/this.width;
+            this.redrawInterval = 50;
 
             this.point_selection_threshold = config.point_select_threshold || 0.1;
 
@@ -228,7 +231,6 @@
             }
 
             this.render = function() {
-                console.log('beep');
                 'use strict';
 
                 const points = me.curve.points;
@@ -371,19 +373,19 @@
             
             this.movePoint = function(index, newPosition){
                'use strict';
+
                 var prevx,nextx;
                 const points = this.curve.points;
                 try{
-                    if (index > 0)
+                    if (index > 0.0)
                         prevx = points[index-1].x;
                     else
-                        prevx = 0;
+                        prevx = -0.000000001;
                     if (index==points.length-1)
-                        nextx = 1.0;
+                        nextx = 1.000000001;
                     else
                         nextx = points[index+1].x;
-
-                    var canvasRect = this.c.getBoundingClientRect();
+                   
                     if(newPosition.x > prevx && newPosition.x < nextx) {
                         this.curve.movePoint(index, newPosition);
                     }
@@ -391,7 +393,7 @@
                 catch(e){
                 }
             }
-        setInterval(this.render, 20); 
+        setInterval(this.render, this.redrawInterval); 
     }
 
 
@@ -503,13 +505,16 @@
 
         const nodered_addItem = function(row, index, data){
             $(row).html(getHtmlForPoint(data));
-            $(row).on('input', function(){
-                const newLocation = {
-                    x: parseFloat($(`#${getHtmlCoordId(data.uid, 'x')}`).val()),
-                    y: parseFloat($(`#${getHtmlCoordId(data.uid, 'y')}`).val())
-                };
-                const index = curve.getPositionOfPoint(data.uid);
-                curveView.movePoint(index, newLocation);
+            $(row).on('keyup', function(e){
+                if(e.keyCode === 13){
+                    const newLocation = {
+                        x: parseFloat($(`#${getHtmlCoordId(data.uid, 'x')}`).val()),
+                        y: parseFloat($(`#${getHtmlCoordId(data.uid, 'y')}`).val())
+                    };
+                    const index = curve.getPositionOfPoint(data.uid);
+                    console.log(index, newLocation);
+                    curveView.movePoint(index, newLocation);
+                }
             });
             $('#node-inputer-points-container').editableList('sort');
         }
@@ -520,6 +525,8 @@
 
         const nodered_removeItem = function(point){
             console.log('removed point: ', point);
+            const position = curve.getPositionOfPoint(point.uid);
+            if(position >= 0 ) curve.removePoint(position, false);
         }
 
         $('#node-input-points-container').editableList({
@@ -535,9 +542,8 @@
         }
 
         const curve_onMovePoint = function(index, point){
-            const items = $('#node-input-points-container').editableList('items');
-            $(item[index]).find(getHtmlCoordClass('x')).val(point.x.toFixed(3));
-            $(item[index]).find(getHtmlCoordClass('y')).val(point.y.toFixed(3));
+            $(`#${getHtmlCoordId(point.uid,'x')}`).val(point.x.toFixed(3));
+            $(`#${getHtmlCoordId(point.uid,'y')}`).val(point.y.toFixed(3));
         }
 
         const curve_onRemovePoint = function(index, point, originalPoint){
