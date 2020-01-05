@@ -1,7 +1,7 @@
-Curve = require('js-curve').Curve;
+Curve = require('js-spline-curve').Curve;
 
 module.exports = function(RED) {
-    function userdefinedCurve(config) {
+    function splineCurve(config) {
         RED.nodes.createNode(this, config);
 
         curve = new Curve(config);
@@ -12,6 +12,6 @@ module.exports = function(RED) {
             node.send(msg);
         });
     }
-    RED.nodes.registerType("userdefined-curve", userdefinedCurve);
+    RED.nodes.registerType("spline-curve", splineCurve);
 }
 

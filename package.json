@@ -1,5 +1,5 @@
 {
-  "name": "node-red-contrib-userdefined-curve",
+  "name": "node-red-contrib-spline-curve",
   "version": "1.0.0",
   "description": "create curves mapping values 0-1 to values 0-1 along a curve.",
   "main": "index.js",
@@ -8,18 +8,17 @@
   },
   "keywords": [
     "node-red",
-    "bezier",
-    "curve",
-    "userdefined"
+    "spline",
+    "curve"
   ],
   "author": "Jason Cronquist",
   "license": "Apache-2.0",
   "node-red": {
     "nodes": {
-      "userdefined-curve": "userdefined-curve.js"
+      "spline-curve": "spline-curve.js"
     }
   },
   "dependencies": {
-    "js-curve": "file:../js-curve"
+    "js-spline-curve": "^1.0.0"
   }
 }

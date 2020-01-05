@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('userdefined-curve',{
+    RED.nodes.registerType('spline-curve',{
         category: 'function',
         color: '#a6bbcf',
         defaults: {
@@ -13,9 +13,9 @@
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
+        icon: "function.png",
         label: function() {
-            return this.name||"interpolated-curve";
+            return this.name||"spline-curve";
         },
         oneditprepare: function() {
         function Curve(config){
@@ -558,14 +558,14 @@
 });
 </script>
 
-<script type="text/x-red" data-template-name="userdefined-curve">
+<script type="text/x-red" data-template-name="spline-curve">
     <canvas id="curve-canvas" height="300" width="300"></canvas>
     <div class="form-row node-input-points-container-row">
         <ol id="node-input-points-container"></ol>
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="userdefined-curve">
+<script type="text/x-red" data-help-name="spline-curve">
     <p>A simple node</p>
 
 </script>
