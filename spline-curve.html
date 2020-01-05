@@ -4,6 +4,8 @@
         color: '#a6bbcf',
         defaults: {
             name: {value:""},
+            output_key: {value: ""},
+            input_key: {value: ""},
             points: {
                 value: [
                     {x: 0.0, y: 0.5},
@@ -541,6 +543,8 @@
             config.points.push({x: parseFloat(point_raw.x), y: parseFloat(point_raw.y)});
         }
 
+        $("#node-input-input_key").typedInput({default:'msg',types:['msg']});
+        $("#node-input-output_key").typedInput({default:'msg',types:['msg']});
         const canvas = document.getElementById('curve-canvas');
         const curve = new Curve(config);
         const curveView = new CurveView(canvas, curve);
@@ -559,6 +563,18 @@
 </script>
 
 <script type="text/x-red" data-template-name="spline-curve">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input id="node-input-name" style="width: 70%" type="text" placeholder="spline-curve">
+    </div>
+    <div class="form-row">
+        <label for="node-input-input_key"><i class="fa fa-ellipsis-h"></i> Input</label>
+        <input id="node-input-input_key" style="width: 70%" type="text" placeholder="payload">
+    </div>
+    <div class="form-row">
+        <label for="node-input-output_key"><i class="fa fa-ellipsis-h"></i> Output</label>
+        <input id="node-input-output_key" style="width: 70%" type="text" placeholder="payload">
+    </div>
     <canvas id="curve-canvas" height="300" width="300"></canvas>
     <div class="form-row node-input-points-container-row">
         <ol id="node-input-points-container"></ol>
