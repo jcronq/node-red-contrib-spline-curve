@@ -209,15 +209,10 @@
 
             this.c.addEventListener('mouseup',  function(ev) {
                 me.mouseUp(ev);
-                me.draw();
             }, false);
             
             this.c.addEventListener('mousemove',  function(ev) {
                 me.mouseMove(ev);
-                if (me.redraw == 1) {
-                    me.draw();
-                    me.redraw = 0;
-                }
             }, false);
 
             // Compare 2 points
@@ -232,83 +227,98 @@
                 }
             }
 
-            // Draw the curve
-            this.draw = function() {
+            this.render = function() {
+                console.log('beep');
                 'use strict';
 
-                const points = this.curve.points;
-                var p1,p4;
+                const points = me.curve.points;
+                const ctx = me.ctx;
+                const width = me.width; const height = me.height;
+                const stepSize = me.stepSize;
+                
+                const moveTo = function(x,y){
+                    ctx.moveTo(x*width,(1.0-y)*height);
+                };
 
-                this.ctx.clearRect(0, 0, this.width, this.height);
-                this.drawGrid();
+                const lineTo = function(x,y){
+                    ctx.lineTo(x*width,(1.0-y)*height);
+                };
+
+                ctx.clearRect(0, 0, width, height);
+                me.drawGrid(ctx);
+                me.drawBorder(ctx);
 
                 if(points.length == 1){
-                    this.ctx.beginPath();
-                    this.ctx.lineWidth = 1;
-                    this.ctx.strokeStyle = '#000000';
-                    this.ctx.moveTo(0, (1.0-this.curve.points[0].y) * this.height);
-                    this.ctx.lineTo(this.width, (1.0-this.curve.points[0].y) * this.height);
-                    this.ctx.stroke();
+                    ctx.beginPath();
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = '#000000';
+                    moveTo(0, points[0].y );
+                    lineTo(width, points[0].y);
+                    ctx.stroke();
                 }
                 else{
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(0.0, this.height-(points[0]*this.height));
-                    for(var i=0.0; i<=1.0 + this.stepSize; i+=this.stepSize) {
-                        this.ctx.lineTo(i*this.width, this.height-(this.curve.getValueAt(i)*this.height));
+                    me.ctx.beginPath();
+                    moveTo(0.0, points[0]);
+                    for(var i=0.0; i<=1.0 + stepSize; i+=stepSize) {
+                        lineTo(i, me.curve.getValueAt(i));
                     }
-                    this.ctx.stroke();
+                    ctx.stroke();
                 }
-                this.drawPoints();
+                me.drawPoints(lineTo, moveTo);
             }
 
             // The background border
-            this.drawBorder = function() {
+            this.drawBorder = function(ctx) {
                 'use strict';
-
-                this.ctx.beginPath();
-                this.ctx.lineWidth = 1;
-                this.ctx.strokeStyle = '#000000';
-                this.ctx.rect(0,0,this.width,this.height);
-                this.ctx.stroke();
+               
+                const height = me.height; const width = me.width;
+                ctx.beginPath();
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = '#000000';
+                ctx.rect(0,0,width,height);
+                ctx.stroke();
             }
 
             // The background grid
-            this.drawGrid = function() {
+            this.drawGrid = function(ctx) {
                 'use strict';
 
-                this.drawBorder();
+                const width = me.width;
+                const height = me.height;
 
-                var space = this.width/4.0;
+                var space = width/4.0;
 
-                this.ctx.beginPath();
-                this.ctx.lineWidth = 1;
-                this.ctx.strokeStyle = '#aaaaaa';
+                ctx.beginPath();
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = '#aaaaaa';
 
                 for(var i=0;i<this.height-space;i+=space)
                 {
-                    this.ctx.moveTo(0, i+space); this.ctx.lineTo(this.height, i+space);
+                    ctx.moveTo(0, i+space); ctx.lineTo(height, i+space);
                 }
                 for(var i=0;i<this.height-space;i+=space)
                 {
-                    this.ctx.moveTo(i+space, 0); this.ctx.lineTo(i+space, this.height);
+                    ctx.moveTo(i+space, 0); ctx.lineTo(i+space, height);
                 }
-                this.ctx.stroke();
+                ctx.stroke();
             }
 
             // Draw the control points
-            this.drawPoints = function() {
+            this.drawPoints = function(lineTo, moveTo) {
                 'use strict';
 
-                const points = this.curve.points;
-                this.ctx.fillStyle = '#ff0000';
-                this.ctx.beginPath();
+                const ctx = me.ctx;
+                const points = me.curve.points;
+                const width = me.width; const height = me.height;
+                ctx.fillStyle = '#ff0000';
+                ctx.beginPath();
 
                 for(var i=0;i<points.length;i++)
                 {
-                    this.ctx.moveTo(points[i].x*this.width,this.height-(points[i].y*this.height));
-                    this.ctx.arc(points[i].x*this.width,this.height-(points[i].y*this.height), 3, 0 , 2 * Math.PI, false);
+                    moveTo(points[i].x, points[i].y);
+                    ctx.arc(points[i].x*width,height-(points[i].y*height), 3, 0 , 2 * Math.PI, false);
                 }
-                this.ctx.fill();
+                me.ctx.fill();
             }
 
             this.getCoordinateFromEvent = function(event){
@@ -376,14 +386,13 @@
                     var canvasRect = this.c.getBoundingClientRect();
                     if(newPosition.x > prevx && newPosition.x < nextx) {
                         this.curve.movePoint(index, newPosition);
-                        this.redraw = 1;
                     }
                 }
                 catch(e){
                 }
             }
-            this.draw();
-        }
+        setInterval(this.render, 20); 
+    }
 
 
 	function CSPL(){};
