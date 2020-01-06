@@ -4,7 +4,7 @@ module.exports = function(RED) {
     function splineCurve(config) {
         RED.nodes.createNode(this, config);
 
-        curve = new Curve(config);
+        const curve = new Curve(config);
 
         const iterableAssignment = function(obj, keys, value){
             if(keys.length == 1){
