@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-spline-curve",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "create curves mapping values 0-1 to values 0-1 along a curve.",
   "main": "index.js",
   "scripts": {
