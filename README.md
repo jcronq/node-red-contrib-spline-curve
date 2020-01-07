@@ -9,5 +9,5 @@ This node is designed to work and be configured the same way as Gimp's Color Cur
 
 In essence, it allows you to design a curve using a few points through a graphical interface.  This is particularly useful when designing functions for their aesthetic properties such as color temperature of a light at different times. It's very useful in expressing the qualitative properties of a value over time, as used in animation.
 
-![Alt text](images/ColorTemperature_practical.PNG)
-![Alt text](images/sunsetCurve_edit.PNG)
+![Alt text](https://raw.githubusercontent.com/jcronq/node-red-contrib-spline-curve/master/images/ColorTemperature_practical.PNG)
+![Alt text](https://github.com/jcronq/node-red-contrib-spline-curve/blob/master/images/sunsetCurve_edit.PNG)
