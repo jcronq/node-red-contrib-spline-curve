@@ -1,3 +1,5 @@
+<a href="https://www.buymeacoffee.com/DXdQf4w" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee"></a>
+
 # Spline Curve
 **node-red-contrib-spline-curve**
 
