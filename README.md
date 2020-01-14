@@ -3,6 +3,9 @@
 # Spline Curve
 **node-red-contrib-spline-curve**
 
+Release Notes:
+1.1.7 - Point on graph updates position when you press enter, after entering coordinate manually.
+
 This node takes float input in the range 0.0 to 1.0 (inclusive) and outputs a float in the range 0.0 to 1.0 (inclusive) as configured from the node's graphical interface.
 
 This node is designed to work and be configured the same way as Gimp's Color Curve, or Unity Engine's Curve module.  The interpolation between points is using Cubic Spline Interpolation.
