@@ -486,7 +486,7 @@
 
         const nodered_addItem = function(row, index, data){
             $(row).html(getHtmlForPoint(data));
-            $(row).on('keyup', function(e){
+            $(row).on('keydown', function(e){
                 if(e.keyCode === 13){
                     const newLocation = {
                         x: parseFloat($(`#${getHtmlCoordId(data.uid, 'x')}`).val()),
