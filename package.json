@@ -28,6 +28,5 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/jcronq/node-red-contrib-spline-curve.git"
-    },
-
+    }
 }
