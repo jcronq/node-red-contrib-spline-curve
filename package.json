@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-spline-curve",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "create curves mapping values 0-1 to values 0-1 along a curve.",
   "main": "index.js",
   "scripts": {
@@ -20,5 +20,14 @@
   },
   "dependencies": {
     "js-spline-curve": "1.0.0"
-  }
+  },
+  "bugs": {
+        "url": "https://github.com/jcronq/node-red-contrib-spline-curve/issues"
+    },
+    "homepage": "https://github.com/jcronq/node-red-contrib-spline-curve",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jcronq/node-red-contrib-spline-curve.git"
+    },
+
 }
