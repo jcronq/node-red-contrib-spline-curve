@@ -15,11 +15,3 @@ In essence, it allows you to design a curve using a few points through a graphic
 ![Alt text](https://raw.githubusercontent.com/jcronq/node-red-contrib-spline-curve/master/images/ColorTemperature_practical.PNG)
 ![Alt text](https://raw.githubusercontent.com/jcronq/node-red-contrib-spline-curve/master/images/sunsetCurve_edit.PNG)
 
-"bugs": {
-        "url": "https://github.com/jcronq/node-red-contrib-spline-curve/issues"
-    },
-    "homepage": "https://github.com/jcronq/node-red-contrib-spline-curve",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jcronq/node-red-contrib-spline-curve.git"
-    },
