@@ -16,7 +16,7 @@ In essence, it allows you to design a curve using a few points through a graphic
 
 You can move points directly in the graph by clicking and dragging, add new points by clicking anywhere on the graph where one does not already exist, and delete points by right clicking them.
 
-When there are 3 or more points on the graph, you get a smooth spline curve.  When there are 2, a line between the points is formed, and when only 1 is present, a flat line passing through the point is generated.
+If there are 3 or more points on the graph, you get a smooth spline curve passing through all points.  When there are 2 points, a line between the points is formed. Lastly when only 1 point is present, a flat line passing through the point is generated.
 
 ![Alt text](https://raw.githubusercontent.com/jcronq/node-red-contrib-spline-curve/master/images/sunsetCurve_edit.PNG)
 
