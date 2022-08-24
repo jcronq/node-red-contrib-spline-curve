@@ -21,7 +21,6 @@ module.exports = function(RED) {
 
         var node = this;
         node.on('input', function(msg){
-            console.log(config);
             const input_key  = (config.input_key)?config.input_key:"payload";
             const output_key = (config.output_key)?config.output_key:"payload";
             const inputKeys  = input_key.split(".");
@@ -33,7 +32,6 @@ module.exports = function(RED) {
             }
 
             const result = curve.getValueAt(inputValue);
-            console.log(outputKeys);
             iterableAssignment(msg, outputKeys, result);
             node.send(msg);
         });
